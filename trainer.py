@@ -2,6 +2,7 @@ import os
 import time
 import logging
 import argparse
+import yaml
 
 from utils.train_model import train
 from utils.hparams import HParam
@@ -20,9 +21,8 @@ def main():
     args = parser.parse_args()
 
     hp = HParam(args.config)
-    with open(args.config, 'r') as f:
-        # store hparams as string
-        hp_str = ''.join(f.readlines())
+    hp_str = yaml.dump(hp)
+    args_str = yaml.dump(vars(args))
 
     pt_dir = os.path.join(hp.log.chkpt_dir, args.name)
     log_dir = os.path.join(hp.log.log_dir, args.name)
@@ -39,6 +39,11 @@ def main():
         ]
     )
     logger = logging.getLogger()
+
+    logger.info('Config by yaml file')
+    logger.info(hp_str)
+    logger.info('Command Line Config')
+    logger.info(args_str)
 
     if hp.data.train == '' or hp.data.test == '':
         logger.error("train or test data directory cannot be empty.")
