@@ -17,3 +17,4 @@ Unofficial PyTorch implementation of [VSR-DUF Paper](http://openaccess.thecvf.co
 
 ##  Reference
 - https://github.com/yhjo09/VSR-DUF
+- https://github.com/open-mmlab/mmsr
